@@ -38,7 +38,7 @@ section.ingresos h2 {
     justify-content: left;
 }
 
-.Hingresos{
+.Hingresos {
     margin-left: 30px;
 }
 
@@ -51,7 +51,6 @@ section.ingresos h2 {
 
 .form {
     background-color: #A4EBA3;
-
     padding: 20px;
     width: 25%;
     height: fit-content;
@@ -66,18 +65,26 @@ form {
 
 .selects {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    margin: 5px;
+    gap: 5px;
+
+}
+
+.selects>select {
+
+    flex-grow: 1;
 }
 
 label {
     margin-bottom: 5px;
     font-weight: bold;
+    display: inline-block;
 }
 
 input,
 select,
-textarea,
-button {
+textarea{
     margin-bottom: 15px;
     padding: 8px;
     border: 1px solid #ccc;
@@ -88,6 +95,10 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    width: 140px;
+    height: 25px;
+    align-items: center ;
+
 }
 
 button {
@@ -95,7 +106,6 @@ button {
 }
 
 .cali {
-
     display: none;
 }
 
@@ -104,12 +114,19 @@ button:hover {
     background-color: #55aa55;
 }
 
+[type=radio] + img {
+    cursor: pointer;
+  }
+
+  [type=radio]:checked + img {
+    outline: 2px solid rgb(0, 0, 0);
+  }
+
 .calificaciones {
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    max-width: 100%;
-    box-sizing: border-box;
+    justify-content: left;
+
+
 
 }
 
@@ -119,16 +136,15 @@ button:hover {
     display: block;
 }
 
-.cal {
-    size: 5px;
-    margin-inline: 8px;
+
+.calificaciones label {
+    width: 50px;
+    margin-right: 10px;
 }
 
-.calth img {
-    max-width: 60px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+td img {
+    width: 80px;
+    margin-right: 10px;
 }
 
 .informacion-general {

@@ -12,7 +12,8 @@
 <body>
     <header>
         <h1>Museo de Arte</h1>
-        <p>Trabajo realizado por <a href="https://www.linkedin.com/in/joaquin-batista-597a51293/" target="_blankx">Joaquin Batista (347699)</a></p>
+        <p>Trabajo realizado por <a href="https://www.linkedin.com/in/joaquin-batista-597a51293/"
+                target="_blank">Joaquin Batista (347699)</a></p>
         <button>Colores</button>
     </header>
 
@@ -25,13 +26,13 @@
                 <h2 class="regart">Registrar Artistas</h2>
                 <form>
                     <label for="nombre-artista">Nombre:</label>
-                    <input type="text" id="nombre-artista" name="nombre-artista">
+                    <input type="text" id="nombre-artista" name="nombre-artista" required>
 
                     <label for="edad-artista">Edad:</label>
-                    <input type="number" id="edad-artista" name="edad-artista">
+                    <input type="number" id="edad-artista" name="edad-artista" required>
 
                     <label for="estilo-artista">Características del estilo:</label>
-                    <textarea id="estilo-artista" name="estilo-artista"></textarea>
+                    <textarea id="estilo-artista" name="estilo-artista" required></textarea>
 
                     <button type="button" class="boton">Agregar Artista</button>
                 </form>
@@ -41,13 +42,13 @@
                 <h2>Ingresar Exposiciones</h2>
                 <form>
                     <label for="titulo-expo">Título:</label>
-                    <input type="text" id="titulo-expo" name="titulo-expo">
+                    <input type="text" id="titulo-expo" name="titulo-expo" required>
 
                     <label for="fecha-expo">Fecha de comienzo:</label>
-                    <input type="date" id="fecha-expo" name="fecha-expo">
+                    <input type="date" id="fecha-expo" name="fecha-expo" required>
 
                     <label for="descripcion-expo">Descripción:</label>
-                    <textarea id="descripcion-expo" name="descripcion-expo"></textarea>
+                    <textarea id="descripcion-expo" name="descripcion-expo" required></textarea>
 
                     <label for="artistas-expo">Elegir artistas:</label>
 
@@ -82,27 +83,32 @@
                     </select>
 
                     <label for="nombre-visitante">Nombre del Visitante:</label>
-                    <input type="text" id="nombre-visitante" name="nombre-visitante">
+                    <input type="text" id="nombre-visitante" name="nombre-visitante" required>
 
                     <label for="comentario">Comentario:</label>
-                    <textarea id="comentario" name="comentario"></textarea>
+                    <textarea id="comentario" name="comentario" required></textarea>
 
                     <label>Calificación:</label>
                     <div class="calificaciones">
-                        <input type="radio" id="cal1" class="cali" name="calificacion" value="1">
-                        <label for="cal1" class="cal"><img src="img/1.png" class="cal" alt="1 estrella"></label>
 
-                        <input type="radio" id="cal2" class="cali" name="calificacion" value="2">
-                        <label for="cal2" class="cal"><img src="img/2.png" alt="2 estrellas"></label>
+                        <label for="cal1" class="cal"><input type="radio" id="cal1" class="cali" name="calificacion"
+                                value="1"><img src="img/1.png" class="Imgcal" alt="1 estrella"></label>
 
-                        <input type="radio" id="cal3" class="cali" name="calificacion" value="3">
-                        <label for="cal3" class="cal"><img src="img/3.png" alt="3 estrellas"></label>
 
-                        <input type="radio" id="cal4" class="cali" name="calificacion" value="4">
-                        <label for="cal4" class="cal"><img src="img/4.png" alt="4 estrellas"></label>
+                        <label for="cal2" class="cal"><input type="radio" id="cal2" class="cali" name="calificacion"
+                                value="2"><img src="img/2.png" class="Imgcal" alt="2 estrellas"></label>
 
-                        <input type="radio" id="cal5" class="cali" name="calificacion" value="5">
-                        <label for="cal5" class="cal"><img src="img/5.png" alt="5 estrellas"></label>
+
+                        <label for="cal3" class="cal"> <input type="radio" id="cal3" class="cali" name="calificacion"
+                                value="3"><img src="img/3.png" class="Imgcal" alt="3 estrellas"></label>
+
+
+                        <label for="cal4" class="cal"><input type="radio" id="cal4" class="cali" name="calificacion"
+                                value="4"><img src="img/4.png" class="Imgcal" alt="4 estrellas"></label>
+
+
+                        <label for="cal5" class="cal"><input type="radio" id="cal5" class="cali" name="calificacion"
+                                value="5"><img src="img/5.png" class="Imgcal" alt="5 estrellas"></label>
                     </div>
 
                     <div>
