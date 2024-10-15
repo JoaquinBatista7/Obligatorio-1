@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museo de Arte</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="js/script.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Museo de Arte</h1>
+        <p>Trabajo realizado por <a href="https://www.linkedin.com/in/joaquin-batista-597a51293/" target="_blankx">Joaquin Batista (347699)</a></p>
+        <button>Colores</button>
+    </header>
+
+    <section class="ingresos">
+
+        <h2 class="hIngresos">Ingresos</h2>
+
+        <div class="forms">
+            <div class="form">
+                <h2 class="regart">Registrar Artistas</h2>
+                <form>
+                    <label for="nombre-artista">Nombre:</label>
+                    <input type="text" id="nombre-artista" name="nombre-artista">
+
+                    <label for="edad-artista">Edad:</label>
+                    <input type="number" id="edad-artista" name="edad-artista">
+
+                    <label for="estilo-artista">Características del estilo:</label>
+                    <textarea id="estilo-artista" name="estilo-artista"></textarea>
+
+                    <button type="button" class="boton">Agregar Artista</button>
+                </form>
+            </div>
+
+            <div class="form2">
+                <h2>Ingresar Exposiciones</h2>
+                <form>
+                    <label for="titulo-expo">Título:</label>
+                    <input type="text" id="titulo-expo" name="titulo-expo">
+
+                    <label for="fecha-expo">Fecha de comienzo:</label>
+                    <input type="date" id="fecha-expo" name="fecha-expo">
+
+                    <label for="descripcion-expo">Descripción:</label>
+                    <textarea id="descripcion-expo" name="descripcion-expo"></textarea>
+
+                    <label for="artistas-expo">Elegir artistas:</label>
+
+                    <div class="selects">
+                        <select id="artistas-expo" name="artistas-expo" multiple>
+                            <option>Nombre 1</option>
+                            <option>Nombre 2</option>
+                        </select>
+
+                        <div class="buttons">
+                            <button type="button">&gt;&gt;</button>
+                            <button type="button">&lt;&lt;</button>
+                        </div>
+
+                        <select id="artistas-expo2" name="artistas-expo2" multiple>
+                            <option>Nombre 3</option>
+                            <option>Nombre 4</option>
+                            <option>Nombre 5</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="boton">Agregar Exposición</button>
+                </form>
+            </div>
+
+            <div class="form2">
+                <h2>Comentarios de Visitas</h2>
+                <form>
+                    <label for="expo-visita">Exposición:</label>
+                    <select id="expo-visita" name="expo-visita">
+                        <option>Título 1</option>
+                    </select>
+
+                    <label for="nombre-visitante">Nombre del Visitante:</label>
+                    <input type="text" id="nombre-visitante" name="nombre-visitante">
+
+                    <label for="comentario">Comentario:</label>
+                    <textarea id="comentario" name="comentario"></textarea>
+
+                    <label>Calificación:</label>
+                    <div class="calificaciones">
+                        <input type="radio" id="cal1" class="cali" name="calificacion" value="1">
+                        <label for="cal1" class="cal"><img src="img/1.png" class="cal" alt="1 estrella"></label>
+
+                        <input type="radio" id="cal2" class="cali" name="calificacion" value="2">
+                        <label for="cal2" class="cal"><img src="img/2.png" alt="2 estrellas"></label>
+
+                        <input type="radio" id="cal3" class="cali" name="calificacion" value="3">
+                        <label for="cal3" class="cal"><img src="img/3.png" alt="3 estrellas"></label>
+
+                        <input type="radio" id="cal4" class="cali" name="calificacion" value="4">
+                        <label for="cal4" class="cal"><img src="img/4.png" alt="4 estrellas"></label>
+
+                        <input type="radio" id="cal5" class="cali" name="calificacion" value="5">
+                        <label for="cal5" class="cal"><img src="img/5.png" alt="5 estrellas"></label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" id="visita-guiada" name="visita-guiada">
+                        <label for="visita-guiada">Hice visita guiada</label>
+                    </div>
+
+                    <button type="submit" class="boton">Agregar Comentario</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="informacion-general">
+        <h2>Información General</h2>
+        <div class="info">
+            <p><strong>Título de las Exposiciones con más artistas:</strong></p>
+            <ul>
+                <li>Datos ficticios 1</li>
+                <li>Datos ficticios 2</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <p><strong>Título y fecha de las Exposiciones sin comentarios: (ordenadas por fecha creciente)</strong></p>
+            <ul>
+                <li>Datos ficticios 1</li>
+                <li>Datos ficticios 2</li>
+            </ul>
+        </div>
+
+        <h3>Información de Comentarios</h3>
+
+        <div id="exposicions">
+            <label for="selectexpo">Exposición:</label>
+            <select id="selectexpo" name="selectexpo">
+                <option value="">Todas</option>
+            </select>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Más datos</th>
+                    <th>Nombre</th>
+                    <th>Comentario</th>
+                    <th>Guiada</th>
+                    <th>Calificación creciente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Título 1</td>
+                    <td><button class="boton">Ampliar</button></td>
+                    <td>Nombre ficticio 1</td>
+                    <td>Comentario ficticio 1</td>
+                    <td>No</td>
+                    <td class="calth"><img src="img/1.png" alt="1 estrella"></td>
+                </tr>
+                <tr>
+                    <td>Título 2</td>
+                    <td><button class="boton">Ampliar</button></td>
+                    <td>Nombre ficticio 2</td>
+                    <td>Comentario ficticio 2</td>
+                    <td>Sí</td>
+                    <td class="calth"><img src="img/5.png" alt="5 estrellas"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+
+</html>
