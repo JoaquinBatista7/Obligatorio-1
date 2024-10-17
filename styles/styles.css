@@ -21,20 +21,20 @@ header p a {
     text-decoration: none;
 }
 
-.ingresos {
+#seccion-ingresos {
     background-color: #98FC98;
     padding: 2%;
     border-radius: 15px;
     margin: 20px;
 }
 
-section.ingresos .forms {
+#seccion-ingresos .forms {
     display: flex;
     justify-content: space-around;
 }
 
 
-section.ingresos h2 {
+#seccion-ingresos h2 {
     justify-content: left;
 }
 
@@ -147,7 +147,7 @@ td img {
     margin-right: 10px;
 }
 
-.informacion-general {
+#seccion-informacion-general {
     margin: 20px;
     background-color: #98FC98;
     border-radius: 15px;

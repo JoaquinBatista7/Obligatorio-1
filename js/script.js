@@ -1,20 +1,46 @@
+window.addEventListener("DOMContentLoaded", function () {
+
+    let isColorChanged = false; // Variable para rastrear el estado del color
+    let artistas = [nombre]
 
 
-  function botonColores() {
-    const headers = document.getElementsByTagName("header");
-    const sections = document.getElementsByTagName("section");
+    document.getElementById("btn-cambiar-colores").addEventListener("click", botonColores);
+    document.getElementById("btn-agregar-artista").addEventListener("click", agregarArtista);
 
-    // Cambiar el color de fondo de todos los elementos <header>
-    for (let i = 0; i < headers.length; i++) {
-        headers[i].style.backgroundColor = '#8DB58E';
+
+
+    function botonColores() {
+
+        // Color que se usará
+        const newColor = '#8DB58E';
+        const originalColor = '#98FC98';
+
+        document.getElementById("encabezado").style.backgroundColor = isColorChanged ? originalColor : newColor;
+        document.getElementById("seccion-ingresos").style.backgroundColor = isColorChanged ? originalColor : newColor;
+        document.getElementById("seccion-informacion-general").style.backgroundColor = isColorChanged ? originalColor : newColor;
+
+
+
+        // Alternar el estado
+        isColorChanged = !isColorChanged; // Cambiar el estado
     }
 
-    // Cambiar el color de fondo de todos los elementos <section>
-    for (let i = 0; i < sections.length; i++) {
-        sections[i].style.backgroundColor = '#8DB58E';
+
+    function agregarArtista() {
+
+        // Supongamos que el ID del select es "artistas-expo"
+        const select = document.getElementById("artistas-expo");
+        const nombre = document.getElementById("nombre-artista").value;
+       
+        // Crear un nuevo elemento <option>
+        const nuevaOpcion = document.createElement("option");
+        nuevaOpcion.text = nombre; // El texto que se mostrará
+
+        // Agregar el nuevo <option> al <select>
+        select.add(nuevaOpcion);
+
     }
-}
 
 
 
-
+});
