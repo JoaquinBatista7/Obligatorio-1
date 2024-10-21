@@ -1,31 +1,32 @@
 window.addEventListener("DOMContentLoaded", function () {
 
-    let isColorChanged = false; // Variable para rastrear el estado del color
-    let artistas = [nombre]
+    let colorCambiado = false; // Variable para rastrear el estado del color
+    
+
+document.getElementById("btn-cambiar-colores").addEventListener("click", botonColores);
+document.getElementById("btn-agregar-artista").addEventListener("click", agregarArtista);
+
+function botonColores() {
+    // Color que se usará
+    const newColor = '#8DB58E';
+    const originalColor = '#98FC98';
+
+    // Cambiar el color según el estado actual de colorCambiado
+    document.getElementById("encabezado").style.backgroundColor = colorCambiado ? originalColor : newColor;
+    document.getElementById("seccion-ingresos").style.backgroundColor = colorCambiado ? originalColor : newColor;
+    document.getElementById("seccion-informacion-general").style.backgroundColor = colorCambiado ? originalColor : newColor;
+
+    // Alternar el estado
+    colorCambiado = !colorCambiado; // Cambiar el estado
+}
 
 
-    document.getElementById("btn-cambiar-colores").addEventListener("click", botonColores);
-    document.getElementById("btn-agregar-artista").addEventListener("click", agregarArtista);
+    function artista (nombre, edad, estilo){
 
-
-
-    function botonColores() {
-
-        // Color que se usará
-        const newColor = '#8DB58E';
-        const originalColor = '#98FC98';
-
-        document.getElementById("encabezado").style.backgroundColor = isColorChanged ? originalColor : newColor;
-        document.getElementById("seccion-ingresos").style.backgroundColor = isColorChanged ? originalColor : newColor;
-        document.getElementById("seccion-informacion-general").style.backgroundColor = isColorChanged ? originalColor : newColor;
-
-
-
-        // Alternar el estado
-        isColorChanged = !isColorChanged; // Cambiar el estado
+        this.nombre = nombre;
+        this.edad = edad;
+        this.estilo = estilo;
     }
-
-
     function agregarArtista() {
 
         // Supongamos que el ID del select es "artistas-expo"
@@ -35,10 +36,13 @@ window.addEventListener("DOMContentLoaded", function () {
         // Crear un nuevo elemento <option>
         const nuevaOpcion = document.createElement("option");
         nuevaOpcion.text = nombre; // El texto que se mostrará
+        
 
         // Agregar el nuevo <option> al <select>
         select.add(nuevaOpcion);
 
+        const nuevoArtista = new Usuario()
+        
     }
 
 
