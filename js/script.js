@@ -1,7 +1,23 @@
 window.addEventListener("DOMContentLoaded", function () {
 
+    function artista(nombre, edad, estilo, artistas) {
+
+        this.nombre = nombre;
+        this.edad = edad;
+        this.estilo = estilo;
+        this.artistas = artistas;
+    }
+
+    function exposicion(titulo, fecha, descripcion) {
+
+        this.titulo = titulo;
+        this.titulo = fecha;
+        this.descripcion = descripcion;
+
+    }
     let colorCambiado = false; // Variable para rastrear el estado del color
     let listaArtista = [];
+    let listaArtistaExpo = [];
 
     document.getElementById("btn-cambiar-colores").addEventListener("click", botonColores);
     document.getElementById("btn-agregar-artista").addEventListener("click", agregarArtista);
@@ -21,12 +37,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    function artista(nombre, edad, estilo) {
 
-        this.nombre = nombre;
-        this.edad = edad;
-        this.estilo = estilo;
-    }
     function agregarArtista() {
 
         // Supongamos que el ID del select es "artistas-expo"
@@ -44,7 +55,16 @@ window.addEventListener("DOMContentLoaded", function () {
 
         const nuevoArtista = new artista(nombre, edad, estilo);
         listaArtista.push(nuevoArtista);
-        alert(listaArtista);
+
+    }
+
+    function agregarExposicion() {
+
+        const select = document.getElementById("artistas-expo2");
+        let titulo = document.getElementById("titulo-expo").value;
+        let fecha = parseInt(document.getElementById("fecha-expo").value);
+        let descripcion = document.getElementById("descripcion-expo").value;
+
 
     }
 
