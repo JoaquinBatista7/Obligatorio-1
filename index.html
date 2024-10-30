@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Museo de Arte</title>
     <link rel="stylesheet" href="styles/styles.css" />
-    <script src="js/script.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="js/functions.js"></script>
   </head>
 
   <body>
@@ -77,7 +78,11 @@
             <label for="artistas-expo">Elegir artistas:</label>
 
             <div class="selects">
-              <select id="artistas-expo" name="artistas-expo" multiple></select>
+              <select id="artistas-expo" name="artistas-expo" multiple>
+                <option value="">Nombre 1</option>
+                <option value="">Nombre 2</option>
+                <option value="">Nombre 3</option>
+              </select>
 
               <div class="buttons">
                 <button type="button" id="btn-agregar-artistas">
@@ -88,11 +93,10 @@
                 </button>
               </div>
 
-              <select
-                id="artistas-expo2"
-                name="artistas-expo2"
-                multiple
-              ></select>
+              <select id="artistas-expo2" name="artistas-expo2" multiple>
+                <option value="">Nombre 4</option>
+                <option value="">Nombre 5</option>
+              </select>
             </div>
 
             <button type="button" id="btn-agregar-expo" class="boton">
@@ -105,7 +109,9 @@
           <h2>Comentarios de Visitas</h2>
           <form>
             <label for="expo-visita">Exposición:</label>
-            <select id="expo-visita" name="expo-visita"></select>
+            <select id="expo-visita" name="expo-visita">
+              <option value="">Titulo 1</option>
+            </select>
 
             <label for="nombre-visitante">Nombre del Visitante:</label>
             <input
@@ -195,7 +201,8 @@
       <div class="info">
         <p>Título de las Exposiciones con más artistas:</p>
         <ul id="lista-exposiciones-artistas">
-          <li>Sin datos</li>
+          <li>Datos ficticios 1</li>
+          <li>Datos ficticios 2</li>
         </ul>
       </div>
 
@@ -205,7 +212,8 @@
           fecha creciente)
         </p>
         <ul id="lista-exposiciones-comentarios">
-          <li>Sin datos</li>
+          <li>Datos ficticios 1</li>
+          <li>Datos ficticios 2</li>
         </ul>
       </div>
 

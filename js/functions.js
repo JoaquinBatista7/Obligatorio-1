@@ -1,16 +1,5 @@
-window.addEventListener("DOMContentLoaded", function () {
-  function artista(nombre, edad, estilo, artistas) {
-    this.nombre = nombre;
-    this.edad = edad;
-    this.estilo = estilo;
-    this.artistas = artistas;
-  }
-
-  function exposicion(titulo, fecha, descripcion) {
-    this.titulo = titulo;
-    this.titulo = fecha;
-    this.descripcion = descripcion;
-  }
+window.addEventListener("load", function () {
+  
   let colorCambiado = false; // Variable para rastrear el estado del color
   let listaArtista = [];
   let listaArtistaExpo = [];
