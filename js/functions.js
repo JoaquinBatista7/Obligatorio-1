@@ -1,8 +1,5 @@
 window.addEventListener("load", function () {
-  
   let colorCambiado = false; // Variable para rastrear el estado del color
-  let listaArtista = [];
-  let listaArtistaExpo = [];
 
   document
     .getElementById("btn-cambiar-colores")
@@ -45,7 +42,13 @@ window.addEventListener("load", function () {
     select.add(nuevaOpcion);
 
     const nuevoArtista = new artista(nombre, edad, estilo);
-    listaArtista.push(nuevoArtista);
+    sistema.listaArtista.push(nuevoArtista);
+
+    let form = document.getElementById("form-artista");
+    if (form.reportValidity()) {
+      form.submit();
+      
+    }
   }
 
   function agregarExposicion() {
@@ -53,7 +56,17 @@ window.addEventListener("load", function () {
     let titulo = document.getElementById("titulo-expo").value;
     let fecha = parseInt(document.getElementById("fecha-expo").value);
     let descripcion = document.getElementById("descripcion-expo").value;
+    let artistaSeleccionado = select.value;
+
+    // Buscar el artista seleccionado en el array de artistas
+    let artistaEncontrado = sistema.listaArtista.find(
+      (artista) => artista.nombre === artistaSeleccionado
+    );
+
+    // Crear nueva exposición con el artista encontrado
+    const nuevaExposicion = new exposicion(titulo, fecha, descripcion);
+
+    // Agregar la exposición a la lista de exposiciones
+    listaExposicion.push(nuevaExposicion);
   }
 });
-
-
