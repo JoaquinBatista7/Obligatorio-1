@@ -48,6 +48,8 @@
 
     }
 
-
+    obtenerPersonas() { 
+      return this.listaArtista;
+    }
   }
 
