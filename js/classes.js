@@ -23,12 +23,10 @@
       this.visitas = [];
     }
 
-    comprobarArtista(nombre, edad, estilo) {
-      
-    }
+
 
     agregarArtista(nombre, edad, estilo) {
-      let nuevoArtista = new artista(nombre, edad, estilo);
+      let nuevoArtista = new Artista(nombre, edad, estilo);
       this.listaArtista.push(nuevoArtista);
       const select = document.getElementById("artistas-expo");
       let nuevaOpcion = document.createElement("option");
@@ -36,20 +34,17 @@
       select.add(nuevaOpcion);
     }
 
-    existePersona(nombre) {
-      let existe = false;
-      for(let i = 0; i < this.listaArtista.length && !existe; i++){
-        let objArtista = this.listaArtista[i];
-        if(objArtista.nombre === nombre){
-          existe = true;
+    existeArtista(nombre) {
+      for (let i = 0; i < this.listaArtista.length; i++) {
+        if (this.listaArtista[i].nombre === nombre) {
+          return true;
         }
       }
-      return existe;
-
+      return false;
     }
 
     obtenerPersonas() { 
-      return this.listaArtista;
+      return this.listaArtista; 
     }
   }
 
