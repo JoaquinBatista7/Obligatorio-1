@@ -1,4 +1,7 @@
-window.addEventListener("load", function () {
+window.addEventListener("load", setup);
+
+function setup() {
+  let sistema = new Sistema();
   let colorCambiado = false; // Variable para rastrear el estado del color
 
   document
@@ -6,7 +9,7 @@ window.addEventListener("load", function () {
     .addEventListener("click", botonColores);
   document
     .getElementById("btn-agregar-artista")
-    .addEventListener("click", agregarArtista);
+    .addEventListener("click", agregarArtistaBoton);
 
   function botonColores() {
     // Color que se usará
@@ -28,28 +31,47 @@ window.addEventListener("load", function () {
     colorCambiado = !colorCambiado; // Cambiar el estado
   }
 
-  function agregarArtista() {
-    // Supongamos que el ID del select es "artistas-expo"
+
+  function agregarArtistaBoton() {
+    let form = document.getElementById("form-artistas");
+
+    if (form.reportValidity()) {
     const select = document.getElementById("artistas-expo");
     let nombre = document.getElementById("nombre-artista").value;
     let edad = parseInt(document.getElementById("edad-artista").value);
     let estilo = document.getElementById("estilo-artista").value;
-    // Crear un nuevo elemento <option>
-    const nuevaOpcion = document.createElement("option");
-    nuevaOpcion.text = nombre; // El texto que se mostrará
 
-    // Agregar el nuevo <option> al <select>
-    select.add(nuevaOpcion);
+    if(sistema.existePersona(nombre)){
 
-    const nuevoArtista = new artista(nombre, edad, estilo);
-    sistema.listaArtista.push(nuevoArtista);
-
-    let form = document.getElementById("form-artista");
-    if (form.reportValidity()) {
-      form.submit();
-      
+      alert("El artista ya existe");
+    }else{
+      sistema.agregarArtista(nombre, edad, estilo);
     }
+
+    console.log(nombre, edad, estilo);
+    form.reset();
+    }
+    
   }
+
+ /*Este e un ejemplo de cargar tabla pero lo tengo que ajustar a lo que yo necesito agregar
+  function cargarTabla() {  
+    let listaTabla = sistema.obtenerPersonas();
+
+    let texto = "";
+
+    for (let i = 0; i < lista.length; i++) {
+      let obj = lista[i];
+      texto += `<tr>
+                  <td>${obj.nombre}</td>
+                  <td>${obj.edad}</td>
+                  <td>${obj.estilo}</td>
+                </tr>`;       
+    }
+
+    document.getElementById("tabla-artistas").innerHTML = texto;
+
+  } */
 
   function agregarExposicion() {
     const select = document.getElementById("artistas-expo2");
@@ -69,4 +91,4 @@ window.addEventListener("load", function () {
     // Agregar la exposición a la lista de exposiciones
     listaExposicion.push(nuevaExposicion);
   }
-});
+}
