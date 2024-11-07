@@ -41,7 +41,7 @@ function setup() {
     let edad = parseInt(document.getElementById("edad-artista").value);
     let estilo = document.getElementById("estilo-artista").value;
 
-    if(sistema.existePersona(nombre)){
+    if(sistema.existeArtista(nombre)){
 
       alert("El artista ya existe");
     }else{
