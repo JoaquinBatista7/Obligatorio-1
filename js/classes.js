@@ -1,50 +1,47 @@
+class Artista {
+  constructor(nombre, edad, estilo) {
+    this.nombre = nombre;
+    this.edad = edad;
+    this.estilo = estilo;
+  }
+}
 
-  class Artista {
-    constructor(nombre, edad, estilo) {
-      this.nombre = nombre;
-      this.edad = edad;
-      this.estilo = estilo;
-    }
+class Exposicion {
+  constructor(titulo, fecha, descripcion, artistas) {
+    this.titulo = titulo;
+    this.fecha = fecha;
+    this.descripcion = descripcion;
+    this.artistas = artistas;
+  }
+}
+
+class Sistema {
+  constructor() {
+    this.listaArtista = [];
+    this.listaExpo = [];
+    this.visitas = [];
   }
 
-  class Exposicion {
-    constructor(titulo, fecha, descripcion, artista, a) {
-      this.titulo = titulo;
-      this.titulo = fecha;
-      this.descripcion = descripcion;
-      this.artistas = [];
-    }
+  agregarExposicion(titulo, fecha, descripcion, artistas) {
+    let nuevaExpo = new Exposicion(titulo, fecha, descripcion, artistas);
+    this.listaExpo.push(nuevaExpo);
   }
 
-  class Sistema {
-    constructor() {
-      this.listaArtista = [];
-      this.listaExpo = [];
-      this.visitas = [];
-    }
+  agregarArtista(nombre, edad, estilo) {
+    let nuevoArtista = new Artista(nombre, edad, estilo);
+    this.listaArtista.push(nuevoArtista);
+  }
 
-
-
-    agregarArtista(nombre, edad, estilo) {
-      let nuevoArtista = new Artista(nombre, edad, estilo);
-      this.listaArtista.push(nuevoArtista);
-      const select = document.getElementById("artistas-expo");
-      let nuevaOpcion = document.createElement("option");
-      nuevaOpcion.text = nombre;
-      select.add(nuevaOpcion);
-    }
-
-    existeArtista(nombre) {
-      for (let i = 0; i < this.listaArtista.length; i++) {
-        if (this.listaArtista[i].nombre === nombre) {
-          return true;
-        }
+  existeArtista(nombre) {
+    for (let i = 0; i < this.listaArtista.length; i++) {
+      if (this.listaArtista[i].nombre === nombre) {
+        return true;
       }
-      return false;
     }
-
-    obtenerPersonas() { 
-      return this.listaArtista; 
-    }
+    return false;
   }
 
+  obtenerPersonas() {
+    return this.listaArtista;
+  }
+}
