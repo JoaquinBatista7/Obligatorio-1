@@ -24,8 +24,9 @@ function setup() {
     .getElementById("btn-agregar-expo")
     .addEventListener("click", agregarExpoBoton);
 
-
-
+  document
+    .getElementById("btn-agregar-comentario")
+    .addEventListener("click", agregarComentarioBoton);
 
   function botonColores() {
     // Color que se usará
@@ -93,7 +94,7 @@ function setup() {
       //crear array de artista seleccionados para la exposicion y mover los option al expo-1 y eliminarlos del expo 2
       let artistas = [];
       let select = document.getElementById("artistas-expo2");
-      for (let i = 0; i < select.options.length; i++) {
+      for (let i = 0; i < select.options.length; i = i) {
         artistas.push(select.options[i].text);
         let nuevaOpcion = document.createElement("option");
         nuevaOpcion.text = select.options[i].text;
@@ -104,14 +105,35 @@ function setup() {
       let nuevaOpcion = document.createElement("option");
       nuevaOpcion.text = titulo;
       document.getElementById("expo-visita").add(nuevaOpcion);
-      form.reset(); 
+      form.reset();
     }
   }
 
-function agregarComentarioBoton(){
+  function agregarComentarioBoton() {
+    let form = document.getElementById("form-comentario");
+    if (form.reportValidity()) {
+      let exposicion = document.getElementById("expo-visita").value;
+      let nombre = document.getElementById("nombre-visitante").value;
+      let comentario = document.getElementById("comentario").value;
+      let calificacion = 1;
+      let guiada = document.getElementById("visita-guiada").checked;
 
-  
-}
+      //le asigno a calificacion, el valor del radio button seleccionado
+      let radios = document.getElementsByName("calificacion");
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          calificacion = radios[i].value;
+        }
+      }
 
-
+      sistema.agregarComentario(
+        exposicion,
+        nombre,
+        comentario,
+        calificacion,
+        guiada
+      );
+      form.reset();
+    }
+  }
 }

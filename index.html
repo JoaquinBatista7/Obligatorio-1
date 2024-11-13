@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Museo de Arte</title>
+    <meta
+      name="description"
+      content="Página del Museo de Arte, donde se pueden registrar artistas y exposiciones, y gestionar visitas."
+    />
+    <meta
+      name="keywords"
+      content="Museo, Arte, Artistas, Exposiciones, Visitas"
+    />
+    <meta name="author" content="Joaquin Batista" />
     <link rel="stylesheet" href="styles/styles.css" />
     <script src="js/classes.js"></script>
     <script src="js/functions.js"></script>
@@ -17,7 +26,8 @@
         <a
           href="https://www.linkedin.com/in/joaquin-batista-597a51293/"
           target="_blank"
-          >Joaquin Batista (347699)</a>
+          >Joaquin Batista (347699)</a
+        >
       </p>
       <button id="btn-cambiar-colores">Colores</button>
     </header>
@@ -26,7 +36,7 @@
       <h2 class="hIngresos">Ingresos</h2>
 
       <div class="forms">
-        <article  class="form">
+        <article class="form">
           <h2 class="regart">Registrar Artistas</h2>
           <form id="form-artistas">
             <label for="nombre-artista">Nombre:</label>
@@ -105,9 +115,7 @@
           <h2>Comentarios de Visitas</h2>
           <form>
             <label for="expo-visita">Exposición:</label>
-            <select id="expo-visita" name="expo-visita">
-            
-            </select>
+            <select id="expo-visita" name="expo-visita"></select>
 
             <label for="nombre-visitante">Nombre del Visitante:</label>
             <input
@@ -184,7 +192,7 @@
               <label for="visita-guiada">Hice visita guiada</label>
             </div>
 
-            <button type="submit" id="btn-agregar-comentario" class="boton">
+            <button type="button" id="btn-agregar-comentario" class="boton">
               Agregar Comentario
             </button>
           </form>
@@ -196,9 +204,7 @@
       <h2>Información General</h2>
       <div class="info">
         <p>Título de las Exposiciones con más artistas:</p>
-        <ul id="lista-exposiciones-artistas">
-     
-        </ul>
+        <ul id="lista-exposiciones-artistas"></ul>
       </div>
 
       <div class="info">
@@ -206,9 +212,7 @@
           Título y fecha de las Exposiciones sin comentarios: (ordenadas por
           fecha creciente)
         </p>
-        <ul id="lista-exposiciones-comentarios">
-         
-        </ul>
+        <ul id="lista-exposiciones-comentarios"></ul>
       </div>
 
       <h3>Información de Comentarios</h3>

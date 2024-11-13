@@ -13,7 +13,17 @@ class Exposicion {
     this.descripcion = descripcion;
     this.artistas = artistas;
   }
+}
 
+class Visitas {
+
+  constructor(exposicion, nombre, comentario, calificacion, guiada) {
+    this.exposicion = exposicion;
+    this.nombre = nombre;
+    this.comentario = comentario;
+    this.calificacion = calificacion;
+    this.guiada = guiada;
+  }
 }
 
 class Sistema {
@@ -21,13 +31,12 @@ class Sistema {
     this.listaArtista = [];
     this.listaExpo = [];
     this.visitas = [];
-
-
   }
-  
-    toString ( ) {
-      return `Artistas: ${this.listaArtista} Exposiciones: ${this.listaExpo} Visitas: ${this.visitas}`
-    }
+
+
+  toString() {
+    return `Artistas: ${this.listaArtista} Exposiciones: ${this.listaExpo} Visitas: ${this.visitas}`;
+  }
   agregarExposicion(titulo, fecha, descripcion, artistas) {
     let nuevaExpo = new Exposicion(titulo, fecha, descripcion, artistas);
     this.listaExpo.push(nuevaExpo);
@@ -36,6 +45,11 @@ class Sistema {
   agregarArtista(nombre, edad, estilo) {
     let nuevoArtista = new Artista(nombre, edad, estilo);
     this.listaArtista.push(nuevoArtista);
+  }
+
+  agregarComentario(exposicion, nombre, comentario, calificacion, guiada) {
+    let nuevoComentario = new Visitas(exposicion, nombre, comentario, calificacion, guiada);
+    this.visitas.push(nuevoComentario); 
   }
 
   existeArtista(nombre) {
