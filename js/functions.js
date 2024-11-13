@@ -130,10 +130,32 @@ function setup() {
         exposicion,
         nombre,
         comentario,
-        calificacion,
+        calificacion, 
         guiada
       );
       form.reset();
     }
+  }
+
+  function actualizarTabla() {
+    //Cargar en tabla
+    let objTabla = document.getElementById("idTablaPuestos");
+    let txt = "";
+
+    for (let p of sistema.visitas) {
+      txt +=
+        "<tr><td>" +
+        p.exposicion +
+        "</td><td>" +
+        p.nombre +
+        "</td><td>" +
+        p.comentario +
+        "</td></tr>" +
+        p.calificacion +
+        "</td></tr>" +
+        p.guiada +
+        "</td></tr>";
+    }
+    objTabla.innerHTML = txt;
   }
 }
