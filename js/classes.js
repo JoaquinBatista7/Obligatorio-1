@@ -13,6 +13,7 @@ class Exposicion {
     this.descripcion = descripcion;
     this.artistas = artistas;
   }
+
 }
 
 class Sistema {
@@ -20,8 +21,13 @@ class Sistema {
     this.listaArtista = [];
     this.listaExpo = [];
     this.visitas = [];
-  }
 
+
+  }
+  
+    toString ( ) {
+      return `Artistas: ${this.listaArtista} Exposiciones: ${this.listaExpo} Visitas: ${this.visitas}`
+    }
   agregarExposicion(titulo, fecha, descripcion, artistas) {
     let nuevaExpo = new Exposicion(titulo, fecha, descripcion, artistas);
     this.listaExpo.push(nuevaExpo);

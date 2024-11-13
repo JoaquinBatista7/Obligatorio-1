@@ -19,11 +19,13 @@ function setup() {
     .getElementById("btn-remover-artistas")
     .addEventListener("click", function () {
       moverArtistas("artistas-expo2", "artistas-expo");
-
-      document
-        .getElementById("btn-agregar-expo")
-        .addEventListener("click", agregarExpoBoton);
     });
+  document
+    .getElementById("btn-agregar-expo")
+    .addEventListener("click", agregarExpoBoton);
+
+
+
 
   function botonColores() {
     // Color que se usará
@@ -88,25 +90,28 @@ function setup() {
       let fecha = document.getElementById("fecha-expo").value;
       let descripcion = document.getElementById("descripcion-expo").value;
 
+      //crear array de artista seleccionados para la exposicion y mover los option al expo-1 y eliminarlos del expo 2
       let artistas = [];
-      let artistasExpo = document.getElementById("artistas-expo2");
-      for (let i = 0; i < artistasExpo.options.length; i++) {
-        let nombreArtista = artistasExpo.options[i].text;
-        // Buscar el artista en la lista de artistas del sistema
-        let artista = sistema.listaArtista.find(
-         Artista.nombre === nombreArtista
-        );
-        if (artista) {
-          artistas.push(artista);
-
-        }
- 
+      let select = document.getElementById("artistas-expo2");
+      for (let i = 0; i < select.options.length; i++) {
+        artistas.push(select.options[i].text);
+        let nuevaOpcion = document.createElement("option");
+        nuevaOpcion.text = select.options[i].text;
+        document.getElementById("artistas-expo").add(nuevaOpcion);
+        select.remove(i);
       }
       sistema.agregarExposicion(titulo, fecha, descripcion, artistas);
-      form.reset();
-      alert(Exposicion);
+      let nuevaOpcion = document.createElement("option");
+      nuevaOpcion.text = titulo;
+      document.getElementById("expo-visita").add(nuevaOpcion);
+      form.reset(); 
     }
-
-    
   }
+
+function agregarComentarioBoton(){
+
+  
+}
+
+
 }
