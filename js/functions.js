@@ -1,7 +1,6 @@
 window.addEventListener("load", setup);
-
+let sistema = new Sistema();
 function setup() {
-  let sistema = new Sistema();
   let colorCambiado = false; // Variable para rastrear el estado del color
 
   document
@@ -62,6 +61,7 @@ function setup() {
         let nuevaOpcion = document.createElement("option");
         nuevaOpcion.text = nombre;
         select.add(nuevaOpcion);
+        ordenarSelectAlfabeticamente("artistas-expo");
         sistema.agregarArtista(nombre, edad, estilo);
         form.reset();
       }
@@ -81,6 +81,7 @@ function setup() {
     opcionesSeleccionadas.forEach((option) => {
       destino.add(option);
     });
+    ordenarSelectAlfabeticamente(destinoId);
   }
 
   function agregarExpoBoton() {
@@ -111,7 +112,9 @@ function setup() {
   function agregarComentarioBoton() {
     let form = document.getElementById("form-comentario");
     if (form.reportValidity()) {
-      let exposicion = document.getElementById("expo-visita").value;
+      let exposicionValor = document.getElementById("expo-visita").value;
+      let exposicion = sistema.obtenerExposicionTitulo(exposicionValor);
+
       let nombre = document.getElementById("nombre-visitante").value;
       let comentario = document.getElementById("comentario").value;
       let calificacion = 1;
@@ -129,11 +132,23 @@ function setup() {
         exposicion,
         nombre,
         comentario,
-        calificacion, 
+        calificacion,
         guiada
       );
       form.reset();
     }
   }
 
+  function ordenarSelectAlfabeticamente(selectId) {
+    let select = document.getElementById(selectId);
+    let options = select.options;
+    let arr = [];
+    for (let i = 0; i < options.length; i++) {
+      arr.push(options[i].text);
+    }
+    arr.sort();
+    for (let i = 0; i < arr.length; i++) {
+      options[i].text = arr[i];
+    }
+  }
 }

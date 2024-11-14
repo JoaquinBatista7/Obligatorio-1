@@ -85,4 +85,14 @@ class Sistema {
     }
     return resultado;
   }
+
+  obtenerExposicionTitulo(titulo) {
+    let resultado = null;
+    for (let i = 0; i < this.listaExpo.length; i++) {
+      if (this.listaExpo[i].titulo === titulo) {
+        resultado = this.listaExpo[i];
+      }
+    }
+    return resultado;
+  }
 }
