@@ -57,17 +57,16 @@ function setup() {
 
       if (sistema.existeArtista(nombre)) {
         alert("El artista ya está en la lista.");
-        return;
+      } else {
+        const select = document.getElementById("artistas-expo");
+        let nuevaOpcion = document.createElement("option");
+        nuevaOpcion.text = nombre;
+        select.add(nuevaOpcion);
+        sistema.agregarArtista(nombre, edad, estilo);
+        form.reset();
       }
-      const select = document.getElementById("artistas-expo");
-      let nuevaOpcion = document.createElement("option");
-      nuevaOpcion.text = nombre;
-      select.add(nuevaOpcion);
-      sistema.agregarArtista(nombre, edad, estilo);
-      form.reset();
     }
   }
-
   function moverArtistas(origenId, destinoId) {
     let origen = document.getElementById(origenId);
     let destino = document.getElementById(destinoId);
