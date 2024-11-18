@@ -151,4 +151,9 @@ function setup() {
       options[i].text = arr[i];
     }
   }
+
+  function actualizarTabla(){
+
+    
+  }
 }
