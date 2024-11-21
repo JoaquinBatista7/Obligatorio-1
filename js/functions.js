@@ -112,32 +112,40 @@ function setup() {
   function agregarComentarioBoton() {
     let form = document.getElementById("form-comentario");
     if (form.reportValidity()) {
-      let exposicionValor = document.getElementById("expo-visita").value;
-      let exposicion = sistema.obtenerExposicionTitulo(exposicionValor);
+        let exposicionTitulo = document.getElementById("expo-visita").value;
+        let exposicion = sistema.obtenerExposicionTitulo(exposicionTitulo);
+        
+        let nombre = document.getElementById("nombre-visitante").value;
+        let comentario = document.getElementById("comentario").value;
+        let calificacion = 1;
+        let guiada = document.getElementById("visita-guiada").checked;
 
-      let nombre = document.getElementById("nombre-visitante").value;
-      let comentario = document.getElementById("comentario").value;
-      let calificacion = 1;
-      let guiada = document.getElementById("visita-guiada").checked;
-
-      //le asigno a calificacion, el valor del radio button seleccionado
-      let radios = document.getElementsByName("calificacion");
-      for (let i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-          calificacion = radios[i].value;
+        // Obtener calificación seleccionada
+        let radios = document.getElementsByName("calificacion");
+        for (let i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                calificacion = radios[i].value;
+                break;
+            }
         }
-      }
 
-      sistema.agregarComentario(
-        exposicion,
-        nombre,
-        comentario,
-        calificacion,
-        guiada
-      );
-      form.reset();
+        // Crear el comentario una sola vez
+        let nuevoComentario = new Visitas(
+            exposicion,
+            nombre,
+            comentario,
+            calificacion,
+            guiada
+        );
+
+        // Agregar el comentario al sistema
+        sistema.visitas.push(nuevoComentario);
+
+        form.reset(); // Limpia el formulario
+        actualizarTablaComentarios(); // Actualiza la tabla
     }
-  }
+}
+
 
   function ordenarSelectAlfabeticamente(selectId) {
     let select = document.getElementById(selectId);
@@ -152,8 +160,57 @@ function setup() {
     }
   }
 
-  function actualizarTabla(){
+  function actualizarTablaComentarios() {
+    let tabla = document
+        .getElementById("tabla-comentarios")
+        .getElementsByTagName("tbody")[0];
+    tabla.innerHTML = ""; // Limpia el contenido de la tabla
 
-    
+    for (let i = 0; i < sistema.visitas.length; i++) {
+        let visita = sistema.visitas[i];
+        let fila = tabla.insertRow();
+
+        // Crear celdas y asignar contenido
+        fila.insertCell().textContent = visita.exposicion.titulo;
+
+        let celdaBoton = fila.insertCell();
+        let botonAmpliar = document.createElement("button");
+        botonAmpliar.textContent = "Ampliar";
+        botonAmpliar.className = "boton"; // Clase CSS para estilo consistente
+        botonAmpliar.addEventListener("click", function () {
+            mostrarDetallesComentario(visita);
+        });
+        celdaBoton.appendChild(botonAmpliar);
+
+        fila.insertCell().textContent = visita.nombre;
+        fila.insertCell().textContent = visita.comentario;
+
+        let celdaGuiada = fila.insertCell();
+        celdaGuiada.textContent = visita.guiada ? "Sí" : "No";
+
+        let celdaCalificacion = fila.insertCell();
+        let imgCalificacion = document.createElement("img");
+        imgCalificacion.src = `img/${visita.calificacion}.png`;
+        imgCalificacion.alt = `${visita.calificacion} estrellas`;
+        celdaCalificacion.appendChild(imgCalificacion);
+    }
+}
+
+
+function mostrarDetallesComentario(visita) {
+  let artistas = "";
+  for (let i = 0; i < visita.exposicion.artistas.length; i++) {
+      artistas += visita.exposicion.artistas[i].toString() + "\n";
   }
+
+  // Mostrar detalles en formato solicitado
+  alert(
+      "Información de la exposición:\n" +
+      `Fecha: ${visita.exposicion.fecha}\n` +
+      `Descripción: ${visita.exposicion.descripcion}\n` +
+      `Artistas:\n${artistas}`
+  );
+}
+
+
 }
