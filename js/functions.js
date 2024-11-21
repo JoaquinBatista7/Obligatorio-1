@@ -27,6 +27,10 @@ function setup() {
     .getElementById("btn-agregar-comentario")
     .addEventListener("click", agregarComentarioBoton);
 
+  document
+    .getElementById("selectexpo")
+    .addEventListener("change", filtrarComentariosPorExposicion);
+
   function botonColores() {
     // Color que se usará
     const newColor = "#8DB58E";
@@ -102,9 +106,7 @@ function setup() {
         select.remove(i);
       }
       sistema.agregarExposicion(titulo, fecha, descripcion, artistas);
-      let nuevaOpcion = document.createElement("option");
-      nuevaOpcion.text = titulo;
-      document.getElementById("expo-visita").add(nuevaOpcion);
+      actualizarSelectsExposiciones();
       form.reset();
     }
   }
@@ -112,39 +114,39 @@ function setup() {
   function agregarComentarioBoton() {
     let form = document.getElementById("form-comentario");
     if (form.reportValidity()) {
-        let exposicionTitulo = document.getElementById("expo-visita").value;
-        let exposicion = sistema.obtenerExposicionTitulo(exposicionTitulo);
-        
-        let nombre = document.getElementById("nombre-visitante").value;
-        let comentario = document.getElementById("comentario").value;
-        let calificacion = 1;
-        let guiada = document.getElementById("visita-guiada").checked;
+      let exposicionTitulo = document.getElementById("expo-visita").value;
+      let exposicion = sistema.obtenerExposicionTitulo(exposicionTitulo);
 
-        // Obtener calificación seleccionada
-        let radios = document.getElementsByName("calificacion");
-        for (let i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                calificacion = radios[i].value;
-                break;
-            }
+      let nombre = document.getElementById("nombre-visitante").value;
+      let comentario = document.getElementById("comentario").value;
+      let calificacion = 1;
+      let guiada = document.getElementById("visita-guiada").checked;
+
+      // Obtener calificación seleccionada
+      let radios = document.getElementsByName("calificacion");
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          calificacion = radios[i].value;
+          break;
         }
+      }
 
-        // Crear el comentario una sola vez
-        let nuevoComentario = new Visitas(
-            exposicion,
-            nombre,
-            comentario,
-            calificacion,
-            guiada
-        );
+      // Crear el comentario una sola vez
+      let nuevoComentario = new Visitas(
+        exposicion,
+        nombre,
+        comentario,
+        calificacion,
+        guiada
+      );
 
-        // Agregar el comentario al sistema
-        sistema.visitas.push(nuevoComentario);
+      // Agregar el comentario al sistema
+      sistema.visitas.push(nuevoComentario);
 
-        form.reset(); // Limpia el formulario
-        actualizarTablaComentarios(); // Actualiza la tabla
+      form.reset(); // Limpia el formulario
+      actualizarTablaComentarios(); // Actualiza la tabla
     }
-}
+  }
 
 
   function ordenarSelectAlfabeticamente(selectId) {
@@ -162,15 +164,101 @@ function setup() {
 
   function actualizarTablaComentarios() {
     let tabla = document
-        .getElementById("tabla-comentarios")
-        .getElementsByTagName("tbody")[0];
+      .getElementById("tabla-comentarios")
+      .getElementsByTagName("tbody")[0];
     tabla.innerHTML = ""; // Limpia el contenido de la tabla
 
     for (let i = 0; i < sistema.visitas.length; i++) {
-        let visita = sistema.visitas[i];
+      let visita = sistema.visitas[i];
+      let fila = tabla.insertRow();
+
+      // Crear celdas y asignar contenido
+      fila.insertCell().textContent = visita.exposicion.titulo;
+
+      let celdaBoton = fila.insertCell();
+      let botonAmpliar = document.createElement("button");
+      botonAmpliar.textContent = "Ampliar";
+      botonAmpliar.className = "boton"; // Clase CSS para estilo consistente
+      botonAmpliar.addEventListener("click", function () {
+        mostrarDetallesComentario(visita);
+      });
+      celdaBoton.appendChild(botonAmpliar);
+
+      fila.insertCell().textContent = visita.nombre;
+      fila.insertCell().textContent = visita.comentario;
+
+      let celdaGuiada = fila.insertCell();
+      celdaGuiada.textContent = visita.guiada ? "Sí" : "No";
+
+      let celdaCalificacion = fila.insertCell();
+      let imgCalificacion = document.createElement("img");
+      imgCalificacion.src = `img/${visita.calificacion}.png`;
+      imgCalificacion.alt = `${visita.calificacion} estrellas`;
+      celdaCalificacion.appendChild(imgCalificacion);
+      restaurarSelectYActualizarTabla();
+    }
+  }
+
+  function mostrarDetallesComentario(visita) {
+    let artistas = "";
+    for (let i = 0; i < visita.exposicion.artistas.length; i++) {
+      artistas += visita.exposicion.artistas[i].toString() + "\n";
+    }
+
+    // Mostrar detalles en formato solicitado
+    alert(
+      "Información de la exposición:\n" +
+        `Fecha: ${visita.exposicion.fecha}\n` +
+        `Descripción: ${visita.exposicion.descripcion}\n` +
+        `Artistas:\n${artistas}`
+    );
+  }
+
+  function actualizarSelectsExposiciones() {
+    // Referencias a los selects
+    const selectComentarios = document.getElementById("expo-visita");
+    const selectTabla = document.getElementById("selectexpo");
+
+    // Limpiar las opciones actuales
+    selectComentarios.innerHTML = "";
+    selectTabla.innerHTML = "<option value=''>Todas</option>"; // "Todas" para el select de la tabla
+
+    // Recorrer las exposiciones del sistema
+    for (let i = 0; i < sistema.listaExpo.length; i++) {
+      const exposicion = sistema.listaExpo[i];
+
+      // Crear nueva opción para cada exposición
+      const opcionComentarios = document.createElement("option");
+      opcionComentarios.value = exposicion.titulo;
+      opcionComentarios.textContent = exposicion.titulo;
+
+      const opcionTabla = opcionComentarios.cloneNode(true);
+
+      // Agregar opciones a cada select
+      selectComentarios.appendChild(opcionComentarios);
+      selectTabla.appendChild(opcionTabla);
+    }
+  }
+
+  function filtrarComentariosPorExposicion() {
+    const selectExpo = document.getElementById("selectexpo");
+    const tituloSeleccionado = selectExpo.value; // Obtener el valor seleccionado
+    const tabla = document
+      .getElementById("tabla-comentarios")
+      .getElementsByTagName("tbody")[0];
+    tabla.innerHTML = ""; // Limpia la tabla
+
+    for (let i = 0; i < sistema.visitas.length; i++) {
+      let visita = sistema.visitas[i];
+
+      // Mostrar todas las exposiciones o filtrar por la seleccionada
+      if (
+        tituloSeleccionado === "" ||
+        visita.exposicion.titulo === tituloSeleccionado
+      ) {
         let fila = tabla.insertRow();
 
-        // Crear celdas y asignar contenido
+        // Crear celdas con contenido
         fila.insertCell().textContent = visita.exposicion.titulo;
 
         let celdaBoton = fila.insertCell();
@@ -178,7 +266,7 @@ function setup() {
         botonAmpliar.textContent = "Ampliar";
         botonAmpliar.className = "boton"; // Clase CSS para estilo consistente
         botonAmpliar.addEventListener("click", function () {
-            mostrarDetallesComentario(visita);
+          mostrarDetallesComentario(visita);
         });
         celdaBoton.appendChild(botonAmpliar);
 
@@ -193,24 +281,17 @@ function setup() {
         imgCalificacion.src = `img/${visita.calificacion}.png`;
         imgCalificacion.alt = `${visita.calificacion} estrellas`;
         celdaCalificacion.appendChild(imgCalificacion);
+      }
     }
-}
-
-
-function mostrarDetallesComentario(visita) {
-  let artistas = "";
-  for (let i = 0; i < visita.exposicion.artistas.length; i++) {
-      artistas += visita.exposicion.artistas[i].toString() + "\n";
   }
 
-  // Mostrar detalles en formato solicitado
-  alert(
-      "Información de la exposición:\n" +
-      `Fecha: ${visita.exposicion.fecha}\n` +
-      `Descripción: ${visita.exposicion.descripcion}\n` +
-      `Artistas:\n${artistas}`
-  );
-}
+  function restaurarSelectYActualizarTabla() {
+    const selectExpo = document.getElementById("selectexpo");
 
+    // Restaurar a la opción "Todas"
+    selectExpo.value = "";
 
+    // Llamar a la función para filtrar y actualizar la tabla (mostrará todos los comentarios)
+    filtrarComentariosPorExposicion();
+  }
 }
