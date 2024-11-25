@@ -31,6 +31,10 @@ function setup() {
     .getElementById("selectexpo")
     .addEventListener("change", filtrarComentariosPorExposicion);
 
+  document
+    .getElementById("orden-calificacion")
+    .addEventListener("click", alternarOrdenCalificacion);
+
   function botonColores() {
     // Color que se usará
     const newColor = "#8DB58E";
@@ -148,7 +152,6 @@ function setup() {
     }
   }
 
-
   function ordenarSelectAlfabeticamente(selectId) {
     let select = document.getElementById(selectId);
     let options = select.options;
@@ -162,41 +165,62 @@ function setup() {
     }
   }
 
-  function actualizarTablaComentarios() {
-    let tabla = document
-      .getElementById("tabla-comentarios")
-      .getElementsByTagName("tbody")[0];
-    tabla.innerHTML = ""; // Limpia el contenido de la tabla
+  let ordenCalificacionCreciente = false; // Estado inicial del orden
 
-    for (let i = 0; i < sistema.visitas.length; i++) {
-      let visita = sistema.visitas[i];
-      let fila = tabla.insertRow();
+function actualizarTablaComentarios() {
+    const tabla = document
+        .getElementById("tabla-comentarios")
+        .getElementsByTagName("tbody")[0];
+    tabla.innerHTML = ""; // Limpia la tabla
 
-      // Crear celdas y asignar contenido
-      fila.insertCell().textContent = visita.exposicion.titulo;
-
-      let celdaBoton = fila.insertCell();
-      let botonAmpliar = document.createElement("button");
-      botonAmpliar.textContent = "Ampliar";
-      botonAmpliar.className = "boton"; // Clase CSS para estilo consistente
-      botonAmpliar.addEventListener("click", function () {
-        mostrarDetallesComentario(visita);
-      });
-      celdaBoton.appendChild(botonAmpliar);
-
-      fila.insertCell().textContent = visita.nombre;
-      fila.insertCell().textContent = visita.comentario;
-
-      let celdaGuiada = fila.insertCell();
-      celdaGuiada.textContent = visita.guiada ? "Sí" : "No";
-
-      let celdaCalificacion = fila.insertCell();
-      let imgCalificacion = document.createElement("img");
-      imgCalificacion.src = `img/${visita.calificacion}.png`;
-      imgCalificacion.alt = `${visita.calificacion} estrellas`;
-      celdaCalificacion.appendChild(imgCalificacion);
-      restaurarSelectYActualizarTabla();
+    // Ordenar las visitas según el estado actual (creciente o decreciente)
+    let visitasOrdenadas = [...sistema.visitas];
+    if (ordenCalificacionCreciente) {
+        visitasOrdenadas.sort((a, b) => a.calificacion - b.calificacion); // Orden creciente
+    } else {
+        visitasOrdenadas.sort((a, b) => b.calificacion - a.calificacion); // Orden decreciente
     }
+
+    for (let i = 0; i < visitasOrdenadas.length; i++) {
+        let visita = visitasOrdenadas[i];
+        let fila = tabla.insertRow();
+
+        // Crear celdas con contenido
+        fila.insertCell().textContent = visita.exposicion.titulo;
+
+        let celdaBoton = fila.insertCell();
+        let botonAmpliar = document.createElement("button");
+        botonAmpliar.textContent = "Ampliar";
+        botonAmpliar.className = "boton"; // Clase CSS para estilo consistente
+        botonAmpliar.addEventListener("click", function () {
+            mostrarDetallesComentario(visita);
+        });
+        celdaBoton.appendChild(botonAmpliar);
+
+        fila.insertCell().textContent = visita.nombre;
+        fila.insertCell().textContent = visita.comentario;
+
+        let celdaGuiada = fila.insertCell();
+        celdaGuiada.textContent = visita.guiada ? "Sí" : "No";
+
+        let celdaCalificacion = fila.insertCell();
+        let imgCalificacion = document.createElement("img");
+        imgCalificacion.src = `img/${visita.calificacion}.png`;
+        imgCalificacion.alt = `${visita.calificacion} estrellas`;
+        celdaCalificacion.appendChild(imgCalificacion);
+    }
+
+    // Actualizar el texto del botón según el estado actual
+    const botonOrden = document.getElementById("orden-calificacion");
+    botonOrden.textContent = ordenCalificacionCreciente
+        ? "Calificación decreciente"
+        : "Calificación creciente";
+}
+
+
+  function alternarOrdenCalificacion() {
+    ordenCalificacionCreciente = !ordenCalificacionCreciente; // Cambiar el estado
+    actualizarTablaComentarios(); // Actualizar la tabla con el nuevo orden
   }
 
   function mostrarDetallesComentario(visita) {
