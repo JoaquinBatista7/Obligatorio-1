@@ -234,7 +234,7 @@ function actualizarTablaComentarios() {
       "Información de la exposición:\n" +
         `Fecha: ${visita.exposicion.fecha}\n` +
         `Descripción: ${visita.exposicion.descripcion}\n` +
-        `Artistas:\n${artistas}`
+        `Artistas:${artistas}`
     );
   }
 
