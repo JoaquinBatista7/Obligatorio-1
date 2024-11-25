@@ -112,6 +112,8 @@ function setup() {
       sistema.agregarExposicion(titulo, fecha, descripcion, artistas);
       actualizarSelectsExposiciones();
       form.reset();
+      // Llamar a la función después de cualquier actualización
+      actualizarInformacionGeneral();
     }
   }
 
@@ -149,6 +151,9 @@ function setup() {
 
       form.reset(); // Limpia el formulario
       actualizarTablaComentarios(); // Actualiza la tabla
+      // Llamar a la función después de cualquier actualización
+      actualizarInformacionGeneral();
+
     }
   }
 
@@ -318,4 +323,80 @@ function actualizarTablaComentarios() {
     // Llamar a la función para filtrar y actualizar la tabla (mostrará todos los comentarios)
     filtrarComentariosPorExposicion();
   }
+
+  function actualizarInformacionGeneral() {
+    // Contenedores para las listas
+    const listaExposicionesMasArtistas = document.getElementById("lista-mas-artistas");
+    const listaExposicionesSinComentarios = document.getElementById("lista-sin-comentarios");
+
+    // Limpiar listas anteriores
+    listaExposicionesMasArtistas.innerHTML = "";
+    listaExposicionesSinComentarios.innerHTML = "";
+
+    // Calcular exposiciones con más artistas
+    let maxArtistas = 0;
+    let exposicionesMasArtistas = [];
+
+    for (let i = 0; i < sistema.listaExpo.length; i++) {
+        const exposicion = sistema.listaExpo[i];
+        const numArtistas = exposicion.artistas.length;
+
+        if (numArtistas > maxArtistas) {
+            maxArtistas = numArtistas;
+            exposicionesMasArtistas = [exposicion];
+        } else if (numArtistas === maxArtistas) {
+            exposicionesMasArtistas.push(exposicion);
+        }
+    }
+
+    // Agregar las exposiciones con más artistas a la lista
+    for (let i = 0; i < exposicionesMasArtistas.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = exposicionesMasArtistas[i].titulo;
+        listaExposicionesMasArtistas.appendChild(li);
+    }
+
+    // Calcular exposiciones sin comentarios
+    let exposicionesSinComentarios = [];
+    for (let i = 0; i < sistema.listaExpo.length; i++) {
+        const exposicion = sistema.listaExpo[i];
+        let tieneComentarios = false;
+
+        for (let j = 0; j < sistema.visitas.length; j++) {
+            if (sistema.visitas[j].exposicion.titulo === exposicion.titulo) {
+                tieneComentarios = true;
+                break;
+            }
+        }
+
+        if (!tieneComentarios) {
+            exposicionesSinComentarios.push(exposicion);
+        }
+    }
+
+    // Ordenar exposiciones sin comentarios por fecha creciente
+    for (let i = 0; i < exposicionesSinComentarios.length - 1; i++) {
+        for (let j = 0; j < exposicionesSinComentarios.length - i - 1; j++) {
+            const fechaA = new Date(exposicionesSinComentarios[j].fecha);
+            const fechaB = new Date(exposicionesSinComentarios[j + 1].fecha);
+
+            if (fechaA > fechaB) {
+                const temp = exposicionesSinComentarios[j];
+                exposicionesSinComentarios[j] = exposicionesSinComentarios[j + 1];
+                exposicionesSinComentarios[j + 1] = temp;
+            }
+        }
+    }
+
+    // Agregar las exposiciones sin comentarios a la lista
+    for (let i = 0; i < exposicionesSinComentarios.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = `${exposicionesSinComentarios[i].titulo} - ${exposicionesSinComentarios[i].fecha}`;
+        listaExposicionesSinComentarios.appendChild(li);
+    }
+}
+
+
+
+
 }
