@@ -5,13 +5,10 @@ class Artista {
     this.estilo = estilo;
   }
 
-  //tnmetodo toString para imprimir artista (nombre, edad: edad, estilo: estilo)
+  //metodo toString para imprimir artista (nombre, edad: edad, estilo: estilo)
   toString() {
     return `${this.nombre} Edad: ${this.edad} Estilo: ${this.estilo}`;
   }
-
-
-
 }
 
 class Exposicion {

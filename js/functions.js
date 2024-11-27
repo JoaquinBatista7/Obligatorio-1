@@ -1,59 +1,39 @@
 window.addEventListener("load", setup);
 let sistema = new Sistema();
 function setup() {
+
   let colorCambiado = false; // Variable para rastrear el estado del color
 
-  document
-    .getElementById("btn-cambiar-colores")
-    .addEventListener("click", botonColores);
-  document
-    .getElementById("btn-agregar-artista")
-    .addEventListener("click", agregarArtistaBoton);
-  document
-    .getElementById("btn-agregar-artistas")
-    .addEventListener("click", function () {
-      moverArtistas("artistas-expo", "artistas-expo2");
-    });
-  document
-    .getElementById("btn-remover-artistas")
-    .addEventListener("click", function () {
-      moverArtistas("artistas-expo2", "artistas-expo");
-    });
-  document
-    .getElementById("btn-agregar-expo")
-    .addEventListener("click", agregarExpoBoton);
+  // Eventos para los botones
+  document.getElementById("btn-cambiar-colores").addEventListener("click", botonColores);
+  document.getElementById("btn-agregar-artista").addEventListener("click", agregarArtistaBoton);
+  document.getElementById("btn-agregar-artistas").addEventListener("click", function () {moverArtistas("artistas-expo", "artistas-expo2");});
+  document.getElementById("btn-remover-artistas").addEventListener("click", function () {moverArtistas("artistas-expo2", "artistas-expo");});
+  document.getElementById("btn-agregar-expo").addEventListener("click", agregarExpoBoton);
+  document.getElementById("btn-agregar-comentario").addEventListener("click", agregarComentarioBoton);
+  document.getElementById("selectexpo").addEventListener("change", filtrarComentariosPorExposicion);
+  document.getElementById("orden-calificacion").addEventListener("click", alternarOrdenCalificacion);
 
-  document
-    .getElementById("btn-agregar-comentario")
-    .addEventListener("click", agregarComentarioBoton);
-
-  document
-    .getElementById("selectexpo")
-    .addEventListener("change", filtrarComentariosPorExposicion);
-
-  document
-    .getElementById("orden-calificacion")
-    .addEventListener("click", alternarOrdenCalificacion);
 
   function botonColores() {
-    // Color que se usará
+    // Colores a usar
     const newColor = "#8DB58E";
-
     const originalColor = "#98FC98";
 
-    // Cambiar el color según el estado actual de colorCambiado
-    document.getElementById("encabezado").style.backgroundColor = colorCambiado
-      ? originalColor
-      : newColor;
-    document.getElementById("seccion-ingresos").style.backgroundColor =
-      colorCambiado ? originalColor : newColor;
-    document.getElementById(
-      "seccion-informacion-general"
-    ).style.backgroundColor = colorCambiado ? originalColor : newColor;
+    if (colorCambiado) {
+      document.getElementById("encabezado").style.backgroundColor = originalColor;
+      document.getElementById("seccion-ingresos").style.backgroundColor = originalColor;
+      document.getElementById("seccion-informacion-general").style.backgroundColor = originalColor;
+    } else {
+      document.getElementById("encabezado").style.backgroundColor = newColor;
+      document.getElementById("seccion-ingresos").style.backgroundColor = newColor;
+      document.getElementById("seccion-informacion-general").style.backgroundColor = newColor;
+    }
 
     // Alternar el estado
-    colorCambiado = !colorCambiado; // Cambiar el estado
+    colorCambiado = !colorCambiado;
   }
+
 
   function agregarArtistaBoton() {
     let form = document.getElementById("form-artistas");
@@ -78,19 +58,17 @@ function setup() {
   function moverArtistas(origenId, destinoId) {
     let origen = document.getElementById(origenId);
     let destino = document.getElementById(destinoId);
-
-    let opcionesSeleccionadas = [];
+  
     for (let i = 0; i < origen.options.length; i++) {
       if (origen.options[i].selected) {
-        opcionesSeleccionadas.push(origen.options[i]);
+        destino.add(origen.options[i]); 
+        i--; // Se baja el indice para no saltarse opciones
       }
     }
-
-    opcionesSeleccionadas.forEach((option) => {
-      destino.add(option);
-    });
+  
     ordenarSelectAlfabeticamente(destinoId);
   }
+  
 
   function agregarExpoBoton() {
     let form = document.getElementById("form-expo");
@@ -98,8 +76,6 @@ function setup() {
       let titulo = document.getElementById("titulo-expo").value;
       let fecha = document.getElementById("fecha-expo").value;
       let descripcion = document.getElementById("descripcion-expo").value;
-
-      //crear array de artista seleccionados para la exposicion y mover los option al expo-1 y eliminarlos del expo 2
       let artistas = [];
       let select = document.getElementById("artistas-expo2");
       for (let i = 0; i < select.options.length; i = i) {
@@ -112,7 +88,6 @@ function setup() {
       sistema.agregarExposicion(titulo, fecha, descripcion, artistas);
       actualizarSelectsExposiciones();
       form.reset();
-      // Llamar a la función después de cualquier actualización
       actualizarInformacionGeneral();
     }
   }
@@ -217,9 +192,13 @@ function actualizarTablaComentarios() {
 
     // Actualizar el texto del botón según el estado actual
     const botonOrden = document.getElementById("orden-calificacion");
-    botonOrden.textContent = ordenCalificacionCreciente
-        ? "Calificación decreciente"
-        : "Calificación creciente";
+
+if (ordenCalificacionCreciente) {
+  botonOrden.textContent = "Calificación decreciente";
+} else {
+  botonOrden.textContent = "Calificación creciente";
+}
+  
 }
 
 
@@ -271,16 +250,16 @@ function actualizarTablaComentarios() {
 
   function filtrarComentariosPorExposicion() {
     const selectExpo = document.getElementById("selectexpo");
-    const tituloSeleccionado = selectExpo.value; // Obtener el valor seleccionado
+    const tituloSeleccionado = selectExpo.value; 
     const tabla = document
       .getElementById("tabla-comentarios")
       .getElementsByTagName("tbody")[0];
-    tabla.innerHTML = ""; // Limpia la tabla
+    tabla.innerHTML = ""; 
 
     for (let i = 0; i < sistema.visitas.length; i++) {
       let visita = sistema.visitas[i];
 
-      // Mostrar todas las exposiciones o filtrar por la seleccionada
+   
       if (
         tituloSeleccionado === "" ||
         visita.exposicion.titulo === tituloSeleccionado
