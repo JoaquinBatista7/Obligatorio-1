@@ -205,11 +205,18 @@ function setup() {
         }
 
     }
+      
+      
 
 
     function alternarOrdenCalificacion() {
         ordenCalificacionCreciente = !ordenCalificacionCreciente; // Cambiar el estado
         actualizarTablaComentarios(); // Actualizar la tabla con el nuevo orden
+        if (ordenCalificacionCreciente) {
+            botonOrden.textContent = "Calificación decreciente";
+        } else {
+            botonOrden.textContent = "Calificación creciente";
+        }
     }
 
     function mostrarDetallesComentario(visita) {
